@@ -1,3 +1,5 @@
+import kotlin.text.set
+
 plugins {
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.kotlin.spring)
@@ -5,7 +7,6 @@ plugins {
     alias(libs.plugins.spring.dependency.management)
     alias(libs.plugins.jooq)
     alias(libs.plugins.kotlin.kapt)
-    alias(libs.plugins.flyway)
 }
 
 group = "com.slimczes"
@@ -56,10 +57,17 @@ tasks.withType<Test> {
     useJUnitPlatform()
 }
 
+val jooqEnabled = project.findProperty("jooq") == "false"
+
+tasks.withType<nu.studer.gradle.jooq.JooqGenerate>().configureEach {
+    enabled = jooqEnabled
+}
+
 jooq {
     version.set(libs.versions.jooq.get())
     configurations {
         create("main") {
+            generateSchemaSourceOnCompilation.set(false)
             jooqConfiguration.apply {
                 jdbc.apply {
                     driver = "org.postgresql.Driver"
@@ -82,15 +90,5 @@ jooq {
             }
         }
     }
-}
-
-flyway {
-    url = "jdbc:postgresql://localhost:5434/payments_db"
-    user = "myuser"
-    password = "secret"
-    locations = arrayOf("classpath:db/migration")
-    schemas = arrayOf("public")
-    baselineOnMigrate = true
-    driver = "org.postgresql.Driver"
 }
 

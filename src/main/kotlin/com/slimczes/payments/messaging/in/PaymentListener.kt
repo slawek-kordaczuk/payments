@@ -3,13 +3,15 @@ package com.slimczes.payments.messaging.`in`
 import com.slimczes.payments.messaging.`in`.event.PaymentCancelEvent
 import com.slimczes.payments.messaging.`in`.event.PaymentEvent
 import com.slimczes.payments.messaging.mapper.PaymentEventMapper
-import com.slimczes.payments.service.payment.PaymentService
+import com.slimczes.payments.service.payment.CancelPayment
+import com.slimczes.payments.service.payment.CreatePayment
 import org.springframework.kafka.annotation.KafkaListener
 import org.springframework.stereotype.Component
 
 @Component
 internal class PaymentListener(
-    private val paymentService: PaymentService,
+    private val createPayment: CreatePayment,
+    private val cancelPayment: CancelPayment,
     private val paymentEventMapper: PaymentEventMapper,
 ) {
 
@@ -20,7 +22,7 @@ internal class PaymentListener(
     )
     fun listenCreatePaymentEvents(event: PaymentEvent) {
         val createPaymentDto = paymentEventMapper.toCreatePaymentDto(event)
-        paymentService.createPayment(createPaymentDto)
+        createPayment.createPayment(createPaymentDto)
     }
 
     @KafkaListener(
@@ -30,7 +32,7 @@ internal class PaymentListener(
     )
     fun listenCancelPaymentEvents(event: PaymentCancelEvent) {
         val cancelPaymentDto = paymentEventMapper.toCancelPaymentDto(event)
-        paymentService.cancelPayment(cancelPaymentDto)
+        cancelPayment.cancelPayment(cancelPaymentDto)
     }
 
 }

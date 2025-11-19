@@ -4,5 +4,5 @@ import java.util.UUID
 
 data class PaymentCancelEvent(
     val clientId: UUID,
-    val orderId: String
+    val orderId: UUID
 )

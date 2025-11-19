@@ -12,15 +12,15 @@ import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 
 @Service
-internal class PaymentServiceImpl(
+class CreatePayment(
     private val clientRepository: ClientRepository,
     private val paymentRepository: PaymentRepository,
     private val paymentPublisher: PaymentPublisher
-) : PaymentService {
+) {
 
     private val log = LoggerFactory.getLogger(javaClass)
 
-    override fun createPayment(createPaymentDto: CreatePaymentDto) {
+    fun createPayment(createPaymentDto: CreatePaymentDto) {
         clientRepository.findById(createPaymentDto.clientId)?.let { client ->
             val payment = Payment.create(client, createPaymentDto.orderId, createPaymentDto.amount)
             payment.processPayment()
@@ -40,20 +40,6 @@ internal class PaymentServiceImpl(
             log.info("Payment processed failed for orderId=${createPaymentDto.orderId} - client not found")
         }
 
-    }
-
-    override fun cancelPayment(cancelPaymentDto: CancelPaymentDto) {
-        paymentRepository.findByOrderId(cancelPaymentDto.orderId)?.let { payment ->
-            payment.cancelPayment()
-                .onSuccess {
-                    paymentRepository.update(payment)
-                }
-                .onFailure {
-                    log.warn("Failed to cancel payment for orderId=${cancelPaymentDto.orderId}")
-                }
-        } ?: run {
-            log.info("Payment not found for cancellation for orderId=${cancelPaymentDto.orderId}")
-        }
     }
 
 }

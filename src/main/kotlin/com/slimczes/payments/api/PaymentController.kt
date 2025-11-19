@@ -12,7 +12,7 @@ class PaymentController (
     private val clientService: ClientService
 ) {
 
-    @PostMapping("/create")
+    @PostMapping
     fun create(@RequestBody money: Money): ResponseEntity<CreateClientResponse> {
         val createClientResponse = clientService.createClient(money)
         return ResponseEntity.ok(createClientResponse)
