@@ -6,6 +6,7 @@ import com.slimczes.payments.domain.Money
 import com.slimczes.payments.messaging.out.event.PaidEvent
 import com.slimczes.payments.service.dto.CreatePaymentDto
 import com.slimczes.payments.service.payment.CreatePayment
+import kotlinx.coroutines.test.runTest
 import org.apache.kafka.clients.consumer.ConsumerRecord
 import org.apache.kafka.clients.consumer.ConsumerRecords
 import org.assertj.core.api.Assertions.assertThat
@@ -37,7 +38,7 @@ class CreatePaymentIT(
 ) {
 
     @Test
-    fun createPayment() {
+    fun createPayment() = runTest {
         // Given
         val orderId = UUID.randomUUID()
         val clientId = UUID.fromString("44444444-4444-4444-4444-444444444444")

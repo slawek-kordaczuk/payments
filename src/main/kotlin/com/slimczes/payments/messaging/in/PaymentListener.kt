@@ -20,7 +20,7 @@ internal class PaymentListener(
         groupId = "\${spring.kafka.consumer.group-id}",
         containerFactory = "createPaymentKafkaListenerContainerFactory"
     )
-    fun listenCreatePaymentEvents(event: PaymentEvent) {
+    suspend fun listenCreatePaymentEvents(event: PaymentEvent) {
         val createPaymentDto = paymentEventMapper.toCreatePaymentDto(event)
         createPayment.createPayment(createPaymentDto)
     }
@@ -30,7 +30,7 @@ internal class PaymentListener(
         groupId = "\${spring.kafka.consumer.group-id}",
         containerFactory = "cancelPaymentKafkaListenerContainerFactory"
     )
-    fun listenCancelPaymentEvents(event: PaymentCancelEvent) {
+    suspend fun listenCancelPaymentEvents(event: PaymentCancelEvent) {
         val cancelPaymentDto = paymentEventMapper.toCancelPaymentDto(event)
         cancelPayment.cancelPayment(cancelPaymentDto)
     }

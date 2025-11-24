@@ -8,6 +8,7 @@ import com.slimczes.payments.service.dto.CancelPaymentDto
 import com.slimczes.payments.service.dto.CreatePaymentDto
 import com.slimczes.payments.service.payment.CancelPayment
 import com.slimczes.payments.service.payment.CreatePayment
+import kotlinx.coroutines.test.runTest
 import org.apache.kafka.clients.consumer.ConsumerRecord
 import org.apache.kafka.clients.consumer.ConsumerRecords
 import org.assertj.core.api.Assertions.assertThat
@@ -40,7 +41,7 @@ class CancelPaymentIT(
 ) {
 
     @Test
-    fun cancelPayment() {
+    fun cancelPayment() = runTest {
         // Given
         val orderId = UUID.randomUUID()
         val clientId = UUID.fromString("55555555-5555-5555-5555-555555555555")

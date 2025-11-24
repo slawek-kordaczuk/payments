@@ -1,11 +1,13 @@
 [versions]
-kotlin = "1.9.25"
+kotlin = "2.1.0"
 spring-boot = "3.5.6"
 spring-dependency-management = "1.1.7"
 jooq = "3.19.26"
 flyway = "10.21.0"
 testcontainers = "1.19.3"
 mapstruct = "1.6.3"
+kotlinx-coroutines = "1.10.1"
+wiremock = "3.10.0"
 
 [libraries]
 spring-boot-starter-jdbc = { module = "org.springframework.boot:spring-boot-starter-jdbc" }
@@ -20,6 +22,9 @@ lombok = { module = "org.projectlombok:lombok" }
 postgresql = { module = "org.postgresql:postgresql" }
 mapstruct = { module = "org.mapstruct:mapstruct", version.ref = "mapstruct" }
 mapstruct-processor = { module = "org.mapstruct:mapstruct-processor", version.ref = "mapstruct" }
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
+kotlinx-coroutines-reactor = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-reactor", version.ref = "kotlinx-coroutines" }
+spring-boot-starter-webflux = { module = "org.springframework.boot:spring-boot-starter-webflux" }
 
 spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test" }
 spring-boot-testcontainers = { module = "org.springframework.boot:spring-boot-testcontainers" }
@@ -29,6 +34,8 @@ testcontainers-junit-jupiter = { module = "org.testcontainers:junit-jupiter" }
 testcontainers-kafka = { module = "org.testcontainers:kafka" }
 testcontainers-postgresql = { module = "org.testcontainers:postgresql", version.ref = "testcontainers" }
 junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx-coroutines" }
+wiremock-standalone = { module = "org.wiremock:wiremock-standalone", version.ref = "wiremock" }
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
@@ -37,4 +44,3 @@ kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot" }
 spring-dependency-management = { id = "io.spring.dependency-management", version.ref = "spring-dependency-management" }
 jooq = { id = "nu.studer.jooq", version = "9.0" }
-flyway = { id = "org.flywaydb.flyway", version.ref = "flyway" }

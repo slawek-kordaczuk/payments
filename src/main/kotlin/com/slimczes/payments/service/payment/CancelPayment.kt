@@ -4,6 +4,7 @@ import com.slimczes.payments.dao.PaymentRepository
 import com.slimczes.payments.service.dto.CancelPaymentDto
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
 class CancelPayment (
@@ -12,6 +13,7 @@ class CancelPayment (
 
     private val log = LoggerFactory.getLogger(javaClass)
 
+    @Transactional
     fun cancelPayment(cancelPaymentDto: CancelPaymentDto) {
         paymentRepository.findByOrderId(cancelPaymentDto.orderId)?.let { payment ->
             payment.cancelPayment()

@@ -3,6 +3,8 @@ package com.slimczes.payments.messaging.out
 import com.slimczes.payments.messaging.out.event.PaidEvent
 import com.slimczes.payments.messaging.out.event.PaidFailedEvent
 import com.slimczes.payments.messaging.out.event.PublishEvent
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.kafka.core.KafkaTemplate

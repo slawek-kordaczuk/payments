@@ -26,17 +26,23 @@ dependencies {
     implementation(libs.spring.boot.starter.jdbc)
     implementation(libs.spring.boot.starter.jooq)
     implementation(libs.spring.boot.starter.web)
+    implementation(libs.spring.boot.starter.webflux)
     implementation(libs.jackson.module.kotlin)
     implementation(libs.flyway.core)
     implementation(libs.flyway.postgresql)
     implementation(libs.kotlin.reflect)
     implementation(libs.spring.kafka)
     implementation(libs.mapstruct)
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.reactor)
+    implementation(libs.wiremock.standalone)
+
     compileOnly(libs.lombok)
     runtimeOnly(libs.postgresql)
     jooqGenerator(libs.postgresql)
     annotationProcessor(libs.lombok)
     kapt(libs.mapstruct.processor)
+
     testImplementation(libs.spring.boot.starter.test)
     testImplementation(libs.spring.boot.testcontainers)
     testImplementation(libs.kotlin.test.junit5)
@@ -44,6 +50,7 @@ dependencies {
     testImplementation(libs.testcontainers.junit.jupiter)
     testImplementation(libs.testcontainers.kafka)
     testImplementation(libs.testcontainers.postgresql)
+    testImplementation(libs.kotlinx.coroutines.test)
     testRuntimeOnly(libs.junit.platform.launcher)
 }
 
