@@ -26,7 +26,6 @@ class CreatePayment(
 
     @Transactional
     suspend fun createPayment(createPaymentDto: CreatePaymentDto) {
-
         clientRepository.findById(createPaymentDto.clientId)?.let { client ->
             val payment = Payment.create(client, createPaymentDto.orderId, createPaymentDto.amount)
             payment.processPayment()
@@ -36,7 +35,6 @@ class CreatePayment(
                     launch {
                         paymentPublisher.publishPaidEvent(PaidEvent(createPaymentDto.orderId))
                     }
-
                     log.info("Payment processed successfully for orderId=${createPaymentDto.orderId}")
                 }
                 .onFailure {

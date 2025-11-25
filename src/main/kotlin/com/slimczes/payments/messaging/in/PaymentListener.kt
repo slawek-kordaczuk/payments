@@ -30,7 +30,7 @@ internal class PaymentListener(
         groupId = "\${spring.kafka.consumer.group-id}",
         containerFactory = "cancelPaymentKafkaListenerContainerFactory"
     )
-    suspend fun listenCancelPaymentEvents(event: PaymentCancelEvent) {
+    fun listenCancelPaymentEvents(event: PaymentCancelEvent) {
         val cancelPaymentDto = paymentEventMapper.toCancelPaymentDto(event)
         cancelPayment.cancelPayment(cancelPaymentDto)
     }
